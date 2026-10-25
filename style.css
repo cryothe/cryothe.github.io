@@ -15,24 +15,28 @@ html {
 }
 
 ::view-transition-old(root) {
-  animation: fade-out 280ms ease both;
+  animation: page-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 ::view-transition-new(root) {
-  animation: fade-in 380ms ease both;
+  animation: page-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes fade-out {
+@keyframes page-out {
   to {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: scale(0.97) translateY(-10px);
   }
 }
 
-@keyframes fade-in {
+@keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: scale(0.96) translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -116,16 +120,72 @@ a {
 }
 
 .page {
-  max-width: 760px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 7.5rem 1.75rem 4rem;
-  animation: page-enter 500ms ease both;
+  animation: page-enter 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes page-enter {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: scale(0.97) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 1.75rem 2rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.intro-copy h1 {
+  margin-bottom: 0.55rem;
+}
+
+.portrait {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #e4ddd1;
+  background: #eae4d8;
+  animation: portrait-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 80ms;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center 18%;
+  transform-origin: center;
+  animation: portrait-zoom 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 80ms;
+}
+
+@keyframes portrait-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes portrait-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
   }
 }
 
@@ -168,6 +228,34 @@ a {
   margin-bottom: 0.7rem;
 }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.1rem;
+}
+
+.project-link {
+  display: inline-block;
+  background: #111;
+  color: #f3efe6;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #111;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  background: transparent;
+  color: #111;
+  transform: translateY(-1px);
+}
+
 .contacts {
   list-style: none;
   padding: 0;
@@ -203,5 +291,29 @@ a {
 
   .page {
     padding-top: 2.5rem;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    max-width: 280px;
+    animation-name: portrait-in-mobile;
+  }
+
+  .portrait img {
+    height: 320px;
+  }
+}
+
+@keyframes portrait-in-mobile {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
